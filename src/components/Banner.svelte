@@ -60,15 +60,16 @@
       { id: Object.keys(choicesMerged)[index] }
     )
   })
-  
+
   $: cookieChoices = choicesArr.reduce((result, item, index, array) => {
     result[item.id] = item.value ? item.value : false
     return result
   }, {})
 
-  export let acceptLabel = 'Accept cookies'
+  export let acceptLabel = 'Only Necessary Cookies'
+  export let acceptAllLabel = 'Accept All'
   export let settingsLabel = 'Cookie settings'
-  export let closeLabel = 'Close settings'
+  export let closeLabel = 'Save changes'
 
   onMount(() => {
     if (!cookieName) {
@@ -117,6 +118,32 @@
     shown = false
   }
 
+  function chooseAll () {
+    console.log(choices, choicesMerged, cookieChoices)
+    const keys = Object.keys(cookieChoices)
+    for (const key of keys) {
+      console.log(key)
+      cookieChoices[key] = true
+    }
+    choose()
+    console.log(choices, choicesMerged, cookieChoices)
+  }
+
+  function chooseNecessary () {
+    console.log(choices, choicesMerged, cookieChoices)
+    const keys = Object.keys(cookieChoices)
+    for (const key of keys) {
+      console.log(key)
+      if (key === 'necessary') {
+        cookieChoices[key] = true
+      } else {
+        cookieChoices[key] = false
+      }
+    }
+    choose()
+    console.log(choices, choicesMerged, cookieChoices)
+  }
+
   function choose () {
     setCookie(cookieChoices)
     execute(cookieChoices)
@@ -163,7 +190,10 @@
         on:click={() => { settingsShown = true } }>
         {settingsLabel}
       </button>
-      <button type="submit" class="cookieConsent__Button" on:click={choose}>
+      <button type="submit" class="cookieConsent__Button" on:click={chooseAll}>
+        {acceptAllLabel}
+      </button>
+      <button type="submit" class="cookieConsent__Button" on:click={chooseNecessary}>
         {acceptLabel}
       </button>
     </div>
@@ -194,7 +224,7 @@
     <button
       type="submit"
       class="cookieConsent__Button cookieConsent__Button--Close"
-      on:click={() => { settingsShown = false } }>
+      on:click={() => { settingsShown = false; choose() } }>
       {closeLabel}
     </button>
   </div>
