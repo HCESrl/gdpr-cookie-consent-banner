@@ -87,7 +87,7 @@
 
   function setCookie (choices) {
     const expires = new Date()
-    expires.setDate(expires.getDate() + 365)
+    expires.setDate(expires.getDate() + 30*6)
 
     const options = Object.assign({}, cookieConfig, { expires })
     cookies.set(cookieName, { choices }, options)
@@ -186,14 +186,14 @@
     <div class="cookieConsent__Right">
       <button
         type="button"
-        class="cookieConsent__Button"
+        class="cookieConsent__Button cookieConsent__Button--preferences"
         on:click={() => { settingsShown = true } }>
         {settingsLabel}
       </button>
-      <button type="submit" class="cookieConsent__Button" on:click={chooseAll}>
+      <button type="submit" class="cookieConsent__Button cookieConsent__Button--all" on:click={chooseAll}>
         {acceptAllLabel}
       </button>
-      <button type="submit" class="cookieConsent__Button" on:click={chooseNecessary}>
+      <button type="submit" class="cookieConsent__Button cookieConsent__Button--necessary" on:click={chooseNecessary}>
         {acceptLabel}
       </button>
     </div>

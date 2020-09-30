@@ -705,11 +705,11 @@ function create_if_block_2(ctx) {
 			attr(div0, "class", "cookieConsent__Content");
 			attr(div1, "class", "cookieConsent__Left");
 			attr(button0, "type", "button");
-			attr(button0, "class", "cookieConsent__Button");
+			attr(button0, "class", "cookieConsent__Button cookieConsent__Button--preferences");
 			attr(button1, "type", "submit");
-			attr(button1, "class", "cookieConsent__Button");
+			attr(button1, "class", "cookieConsent__Button cookieConsent__Button--all");
 			attr(button2, "type", "submit");
-			attr(button2, "class", "cookieConsent__Button");
+			attr(button2, "class", "cookieConsent__Button cookieConsent__Button--necessary");
 			attr(div2, "class", "cookieConsent__Right");
 			attr(div3, "class", "cookieConsent");
 			attr(div4, "class", "cookieConsentWrapper");
@@ -1203,7 +1203,7 @@ function instance($$self, $$props, $$invalidate) {
 
 	function setCookie(choices) {
 		const expires = new Date();
-		expires.setDate(expires.getDate() + 365);
+		expires.setDate(expires.getDate() + 30 * 6);
 		const options = Object.assign({}, cookieConfig, { expires });
 		cookies.set(cookieName, { choices }, options);
 	}
