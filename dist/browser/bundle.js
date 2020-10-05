@@ -598,7 +598,7 @@
     	return child_ctx;
     }
 
-    // (153:0) {#if showEditIcon}
+    // (156:0) {#if showEditIcon}
     function create_if_block_3(ctx) {
     	let button;
     	let button_transition;
@@ -658,7 +658,7 @@
     	};
     }
 
-    // (175:0) {#if shown}
+    // (178:0) {#if shown}
     function create_if_block_2(ctx) {
     	let div4;
     	let div3;
@@ -779,7 +779,7 @@
     	};
     }
 
-    // (204:0) {#if settingsShown}
+    // (207:0) {#if settingsShown}
     function create_if_block(ctx) {
     	let div1;
     	let div0;
@@ -883,7 +883,7 @@
     	};
     }
 
-    // (208:6) {#if Object.hasOwnProperty.call(choicesMerged, choice.id) && choicesMerged[choice.id]}
+    // (211:6) {#if Object.hasOwnProperty.call(choicesMerged, choice.id) && choicesMerged[choice.id]}
     function create_if_block_1(ctx) {
     	let div;
     	let input;
@@ -974,7 +974,7 @@
     	};
     }
 
-    // (207:4) {#each choicesArr as choice}
+    // (210:4) {#each choicesArr as choice}
     function create_each_block(ctx) {
     	let show_if = Object.hasOwnProperty.call(/*choicesMerged*/ ctx[9], /*choice*/ ctx[30].id) && /*choicesMerged*/ ctx[9][/*choice*/ ctx[30].id];
     	let if_block_anchor;
@@ -1274,6 +1274,10 @@
     		setCookie(cookieChoices);
     		execute(cookieChoices);
     	}
+
+    	window.GdprPreferencesOpen = () => {
+    		$$invalidate(8, settingsShown = true);
+    	};
 
     	const click_handler = () => $$invalidate(7, shown = true);
 

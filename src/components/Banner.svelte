@@ -148,6 +148,9 @@
     setCookie(cookieChoices)
     execute(cookieChoices)
   }
+  window.GdprPreferencesOpen = () => {
+    settingsShown = true
+  };
 </script>
 
 {#if showEditIcon}

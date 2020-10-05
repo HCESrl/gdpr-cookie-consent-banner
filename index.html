@@ -16,6 +16,7 @@
   <body>
     <script src="dist/browser/bundle.js"></script>
     <div id="banner"></div>
+    <button onclick="window.GdprPreferencesOpen()">OPEN PREFERENCES</button>
     <script>
       GdprConsent.attachBanner(document.getElementById('banner'), {
         cookieName: 'test_gdpr',
