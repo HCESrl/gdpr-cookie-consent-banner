@@ -8,6 +8,7 @@
   const cookies = Cookie()
 
   export let cookieName = null
+  export let cookieList = null
   export let showEditIcon = true
 
   let shown = false
@@ -76,6 +77,14 @@
       throw new Error('You must set gdpr cookie name')
     }
 
+    if (!cookieList) {
+      cookieList = {
+        "analytics": [],
+        "marketing": [],
+        "tracking": [],
+      }
+    }
+
     const cookie = cookies.get(cookieName)
     if (cookie && chosenMatchesChoice(cookie)) {
       execute(cookie.choices)
@@ -113,6 +122,15 @@
       if (agreed) {
         categories[t] && categories[t]()
         dispatch(`${t}`)
+      } else {
+        console.log('removing cookies of type ' +  t,   cookieList[t])
+        if (cookieList[t]) {
+          for (var i = 0; i < cookieList[t].length; i++) {
+            let cookieName = cookieList[t][i]
+            console.log('removing cookie of name ' + cookieName)
+            eraseCookieFromAllPaths(cookieName)
+          }
+        }
       }
     })
     shown = false
@@ -143,6 +161,32 @@
     choose()
     console.log(choices, choicesMerged, cookieChoices)
   }
+
+  function eraseCookieFromAllPaths(name) {
+    console.log('trying to erase cookie named', name)
+    // This function will attempt to remove a cookie from all paths.
+    var pathBits = location.pathname.split('/');
+    var pathCurrent = ' path=';
+    var domainBits = window.location.hostname.split('.')
+    var domainLevels = [];
+    var tmpDomain = domainBits[domainBits.length - 1];
+    for (var i = domainBits.length - 2; i >= 0; i--) {
+      tmpDomain = domainBits[i] + '.' + tmpDomain
+      domainLevels.push(tmpDomain);
+    }
+
+    // do a simple pathless delete first.
+    document.cookie = name + '=; expires=Thu, 01-Jan-1970 00:00:01 GMT;';
+
+    for (var i = 0; i < pathBits.length; i++) {
+      pathCurrent += ((pathCurrent.substr(-1) != '/') ? '/' : '') + pathBits[i];
+      document.cookie = name + '=; expires=Thu, 01-Jan-1970 00:00:01 GMT;' + pathCurrent + ';';
+      for (var j = 0; j < domainLevels.length; j++) {
+        document.cookie = name + '=; expires=Thu, 01-Jan-1970 00:00:01 GMT;' + pathCurrent + '; domain=' + domainLevels[j] + ';';
+      }
+    }
+  }
+
 
   function choose () {
     setCookie(cookieChoices)
@@ -217,10 +261,10 @@
             id={`gdpr-check-${choice.id}`}
             bind:checked={choicesMerged[choice.id].value}
             disabled={choice.id === 'necessary'} />
-          <label for={`gdpr-check-${choice.id}`}>{choice.label}</label>
-          <span class="cookieConsentOperations__ItemLabel">
-            {choice.description}
-          </span>
+          <label for={`gdpr-check-${choice.id}`}>{@html choice.label}</label>
+          <div class="cookieConsentOperations__ItemLabel">
+            {@html choice.description}
+          </div>
         </div>
       {/if}
     {/each}

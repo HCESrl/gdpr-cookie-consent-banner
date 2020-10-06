@@ -28,13 +28,22 @@
             console.info('Dropped necessary cookies')
           }
         },
+        cookieList: {
+          analytics: ['_ga', '_gid', 'gat']
+        },
         choices: {
           necessary: {
             label: 'Necessary Things',
             description: 'Super important',
             value: true
           },
-          analytics: false
+          analytics:  {
+            label: 'Analytic cookies',
+            description: 'Track me!!',
+            value: true
+          },
+          tracking: false,
+          marketing: false
         }
       })
     </script>

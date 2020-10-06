@@ -589,13 +589,13 @@ function fade(node, { delay = 0, duration = 400, easing = identity }) {
 
 function get_each_context(ctx, list, i) {
 	const child_ctx = ctx.slice();
-	child_ctx[30] = list[i];
-	child_ctx[31] = list;
-	child_ctx[32] = i;
+	child_ctx[31] = list[i];
+	child_ctx[32] = list;
+	child_ctx[33] = i;
 	return child_ctx;
 }
 
-// (156:0) {#if showEditIcon}
+// (200:0) {#if showEditIcon}
 function create_if_block_3(ctx) {
 	let button;
 	let button_transition;
@@ -626,7 +626,7 @@ function create_if_block_3(ctx) {
 			current = true;
 
 			if (!mounted) {
-				dispose = listen(button, "click", /*click_handler*/ ctx[18]);
+				dispose = listen(button, "click", /*click_handler*/ ctx[19]);
 				mounted = true;
 			}
 		},
@@ -655,7 +655,7 @@ function create_if_block_3(ctx) {
 	};
 }
 
-// (178:0) {#if shown}
+// (222:0) {#if shown}
 function create_if_block_2(ctx) {
 	let div4;
 	let div3;
@@ -738,7 +738,7 @@ function create_if_block_2(ctx) {
 
 			if (!mounted) {
 				dispose = [
-					listen(button0, "click", /*click_handler_1*/ ctx[19]),
+					listen(button0, "click", /*click_handler_1*/ ctx[20]),
 					listen(button1, "click", /*chooseAll*/ ctx[11]),
 					listen(button2, "click", /*chooseNecessary*/ ctx[12])
 				];
@@ -776,7 +776,7 @@ function create_if_block_2(ctx) {
 	};
 }
 
-// (207:0) {#if settingsShown}
+// (251:0) {#if settingsShown}
 function create_if_block(ctx) {
 	let div1;
 	let div0;
@@ -825,7 +825,7 @@ function create_if_block(ctx) {
 			current = true;
 
 			if (!mounted) {
-				dispose = listen(button, "click", /*click_handler_2*/ ctx[21]);
+				dispose = listen(button, "click", /*click_handler_2*/ ctx[22]);
 				mounted = true;
 			}
 		},
@@ -880,56 +880,52 @@ function create_if_block(ctx) {
 	};
 }
 
-// (211:6) {#if Object.hasOwnProperty.call(choicesMerged, choice.id) && choicesMerged[choice.id]}
+// (255:6) {#if Object.hasOwnProperty.call(choicesMerged, choice.id) && choicesMerged[choice.id]}
 function create_if_block_1(ctx) {
-	let div;
+	let div1;
 	let input;
 	let input_id_value;
 	let input_disabled_value;
 	let t0;
 	let label;
-	let t1_value = /*choice*/ ctx[30].label + "";
-	let t1;
+	let raw0_value = /*choice*/ ctx[31].label + "";
 	let label_for_value;
-	let t2;
-	let span;
-	let t3_value = /*choice*/ ctx[30].description + "";
-	let t3;
+	let t1;
+	let div0;
+	let raw1_value = /*choice*/ ctx[31].description + "";
 	let mounted;
 	let dispose;
 
 	function input_change_handler() {
-		/*input_change_handler*/ ctx[20].call(input, /*choice*/ ctx[30]);
+		/*input_change_handler*/ ctx[21].call(input, /*choice*/ ctx[31]);
 	}
 
 	return {
 		c() {
-			div = element("div");
+			div1 = element("div");
 			input = element("input");
 			t0 = space();
 			label = element("label");
-			t1 = text(t1_value);
-			t2 = space();
-			span = element("span");
-			t3 = text(t3_value);
+			t1 = space();
+			div0 = element("div");
 			attr(input, "type", "checkbox");
-			attr(input, "id", input_id_value = `gdpr-check-${/*choice*/ ctx[30].id}`);
-			input.disabled = input_disabled_value = /*choice*/ ctx[30].id === "necessary";
-			attr(label, "for", label_for_value = `gdpr-check-${/*choice*/ ctx[30].id}`);
-			attr(span, "class", "cookieConsentOperations__ItemLabel");
-			attr(div, "class", "cookieConsentOperations__Item");
-			toggle_class(div, "disabled", /*choice*/ ctx[30].id === "necessary");
+			attr(input, "id", input_id_value = `gdpr-check-${/*choice*/ ctx[31].id}`);
+			input.disabled = input_disabled_value = /*choice*/ ctx[31].id === "necessary";
+			attr(label, "for", label_for_value = `gdpr-check-${/*choice*/ ctx[31].id}`);
+			attr(div0, "class", "cookieConsentOperations__ItemLabel");
+			attr(div1, "class", "cookieConsentOperations__Item");
+			toggle_class(div1, "disabled", /*choice*/ ctx[31].id === "necessary");
 		},
 		m(target, anchor) {
-			insert(target, div, anchor);
-			append(div, input);
-			input.checked = /*choicesMerged*/ ctx[9][/*choice*/ ctx[30].id].value;
-			append(div, t0);
-			append(div, label);
-			append(label, t1);
-			append(div, t2);
-			append(div, span);
-			append(span, t3);
+			insert(target, div1, anchor);
+			append(div1, input);
+			input.checked = /*choicesMerged*/ ctx[9][/*choice*/ ctx[31].id].value;
+			append(div1, t0);
+			append(div1, label);
+			label.innerHTML = raw0_value;
+			append(div1, t1);
+			append(div1, div0);
+			div0.innerHTML = raw1_value;
 
 			if (!mounted) {
 				dispose = listen(input, "change", input_change_handler);
@@ -939,41 +935,39 @@ function create_if_block_1(ctx) {
 		p(new_ctx, dirty) {
 			ctx = new_ctx;
 
-			if (dirty[0] & /*choicesArr*/ 1024 && input_id_value !== (input_id_value = `gdpr-check-${/*choice*/ ctx[30].id}`)) {
+			if (dirty[0] & /*choicesArr*/ 1024 && input_id_value !== (input_id_value = `gdpr-check-${/*choice*/ ctx[31].id}`)) {
 				attr(input, "id", input_id_value);
 			}
 
-			if (dirty[0] & /*choicesArr*/ 1024 && input_disabled_value !== (input_disabled_value = /*choice*/ ctx[30].id === "necessary")) {
+			if (dirty[0] & /*choicesArr*/ 1024 && input_disabled_value !== (input_disabled_value = /*choice*/ ctx[31].id === "necessary")) {
 				input.disabled = input_disabled_value;
 			}
 
 			if (dirty[0] & /*choicesMerged, choicesArr*/ 1536) {
-				input.checked = /*choicesMerged*/ ctx[9][/*choice*/ ctx[30].id].value;
+				input.checked = /*choicesMerged*/ ctx[9][/*choice*/ ctx[31].id].value;
 			}
 
-			if (dirty[0] & /*choicesArr*/ 1024 && t1_value !== (t1_value = /*choice*/ ctx[30].label + "")) set_data(t1, t1_value);
-
-			if (dirty[0] & /*choicesArr*/ 1024 && label_for_value !== (label_for_value = `gdpr-check-${/*choice*/ ctx[30].id}`)) {
+			if (dirty[0] & /*choicesArr*/ 1024 && raw0_value !== (raw0_value = /*choice*/ ctx[31].label + "")) label.innerHTML = raw0_value;
+			if (dirty[0] & /*choicesArr*/ 1024 && label_for_value !== (label_for_value = `gdpr-check-${/*choice*/ ctx[31].id}`)) {
 				attr(label, "for", label_for_value);
 			}
 
-			if (dirty[0] & /*choicesArr*/ 1024 && t3_value !== (t3_value = /*choice*/ ctx[30].description + "")) set_data(t3, t3_value);
-
+			if (dirty[0] & /*choicesArr*/ 1024 && raw1_value !== (raw1_value = /*choice*/ ctx[31].description + "")) div0.innerHTML = raw1_value;
 			if (dirty[0] & /*choicesArr*/ 1024) {
-				toggle_class(div, "disabled", /*choice*/ ctx[30].id === "necessary");
+				toggle_class(div1, "disabled", /*choice*/ ctx[31].id === "necessary");
 			}
 		},
 		d(detaching) {
-			if (detaching) detach(div);
+			if (detaching) detach(div1);
 			mounted = false;
 			dispose();
 		}
 	};
 }
 
-// (210:4) {#each choicesArr as choice}
+// (254:4) {#each choicesArr as choice}
 function create_each_block(ctx) {
-	let show_if = Object.hasOwnProperty.call(/*choicesMerged*/ ctx[9], /*choice*/ ctx[30].id) && /*choicesMerged*/ ctx[9][/*choice*/ ctx[30].id];
+	let show_if = Object.hasOwnProperty.call(/*choicesMerged*/ ctx[9], /*choice*/ ctx[31].id) && /*choicesMerged*/ ctx[9][/*choice*/ ctx[31].id];
 	let if_block_anchor;
 	let if_block = show_if && create_if_block_1(ctx);
 
@@ -987,7 +981,7 @@ function create_each_block(ctx) {
 			insert(target, if_block_anchor, anchor);
 		},
 		p(ctx, dirty) {
-			if (dirty[0] & /*choicesMerged, choicesArr*/ 1536) show_if = Object.hasOwnProperty.call(/*choicesMerged*/ ctx[9], /*choice*/ ctx[30].id) && /*choicesMerged*/ ctx[9][/*choice*/ ctx[30].id];
+			if (dirty[0] & /*choicesMerged, choicesArr*/ 1536) show_if = Object.hasOwnProperty.call(/*choicesMerged*/ ctx[9], /*choice*/ ctx[31].id) && /*choicesMerged*/ ctx[9][/*choice*/ ctx[31].id];
 
 			if (show_if) {
 				if (if_block) {
@@ -1130,10 +1124,40 @@ function create_fragment(ctx) {
 	};
 }
 
+function eraseCookieFromAllPaths(name) {
+	console.log("trying to erase cookie named", name);
+
+	// This function will attempt to remove a cookie from all paths.
+	var pathBits = location.pathname.split("/");
+
+	var pathCurrent = " path=";
+	var domainBits = window.location.hostname.split(".");
+	var domainLevels = [];
+	var tmpDomain = domainBits[domainBits.length - 1];
+
+	for (var i = domainBits.length - 2; i >= 0; i--) {
+		tmpDomain = domainBits[i] + "." + tmpDomain;
+		domainLevels.push(tmpDomain);
+	}
+
+	// do a simple pathless delete first.
+	document.cookie = name + "=; expires=Thu, 01-Jan-1970 00:00:01 GMT;";
+
+	for (var i = 0; i < pathBits.length; i++) {
+		pathCurrent += (pathCurrent.substr(-1) != "/" ? "/" : "") + pathBits[i];
+		document.cookie = name + "=; expires=Thu, 01-Jan-1970 00:00:01 GMT;" + pathCurrent + ";";
+
+		for (var j = 0; j < domainLevels.length; j++) {
+			document.cookie = name + "=; expires=Thu, 01-Jan-1970 00:00:01 GMT;" + pathCurrent + "; domain=" + domainLevels[j] + ";";
+		}
+	}
+}
+
 function instance($$self, $$props, $$invalidate) {
 	const dispatch = createEventDispatcher();
 	const cookies = Cookie();
 	let { cookieName = null } = $$props;
+	let { cookieList = null } = $$props;
 	let { showEditIcon = true } = $$props;
 	let shown = false;
 	let settingsShown = false;
@@ -1191,6 +1215,14 @@ function instance($$self, $$props, $$invalidate) {
 			throw new Error("You must set gdpr cookie name");
 		}
 
+		if (!cookieList) {
+			$$invalidate(14, cookieList = {
+				"analytics": [],
+				"marketing": [],
+				"tracking": []
+			});
+		}
+
 		const cookie = cookies.get(cookieName);
 
 		if (cookie && chosenMatchesChoice(cookie)) {
@@ -1230,6 +1262,16 @@ function instance($$self, $$props, $$invalidate) {
 			if (agreed) {
 				categories[t] && categories[t]();
 				dispatch(`${t}`);
+			} else {
+				console.log("removing cookies of type " + t, cookieList[t]);
+
+				if (cookieList[t]) {
+					for (var i = 0; i < cookieList[t].length; i++) {
+						let cookieName = cookieList[t][i];
+						console.log("removing cookie of name " + cookieName);
+						eraseCookieFromAllPaths(cookieName);
+					}
+				}
 			}
 		});
 
@@ -1284,8 +1326,8 @@ function instance($$self, $$props, $$invalidate) {
 
 	function input_change_handler(choice) {
 		choicesMerged[choice.id].value = this.checked;
-		($$invalidate(9, choicesMerged), $$invalidate(17, choices));
-		(($$invalidate(10, choicesArr), $$invalidate(9, choicesMerged)), $$invalidate(17, choices));
+		($$invalidate(9, choicesMerged), $$invalidate(18, choices));
+		(($$invalidate(10, choicesArr), $$invalidate(9, choicesMerged)), $$invalidate(18, choices));
 	}
 
 	const click_handler_2 = () => {
@@ -1294,13 +1336,14 @@ function instance($$self, $$props, $$invalidate) {
 	};
 
 	$$self.$$set = $$props => {
-		if ("cookieName" in $$props) $$invalidate(14, cookieName = $$props.cookieName);
+		if ("cookieName" in $$props) $$invalidate(15, cookieName = $$props.cookieName);
+		if ("cookieList" in $$props) $$invalidate(14, cookieList = $$props.cookieList);
 		if ("showEditIcon" in $$props) $$invalidate(0, showEditIcon = $$props.showEditIcon);
 		if ("heading" in $$props) $$invalidate(1, heading = $$props.heading);
 		if ("description" in $$props) $$invalidate(2, description = $$props.description);
-		if ("categories" in $$props) $$invalidate(15, categories = $$props.categories);
-		if ("cookieConfig" in $$props) $$invalidate(16, cookieConfig = $$props.cookieConfig);
-		if ("choices" in $$props) $$invalidate(17, choices = $$props.choices);
+		if ("categories" in $$props) $$invalidate(16, categories = $$props.categories);
+		if ("cookieConfig" in $$props) $$invalidate(17, cookieConfig = $$props.cookieConfig);
+		if ("choices" in $$props) $$invalidate(18, choices = $$props.choices);
 		if ("acceptLabel" in $$props) $$invalidate(3, acceptLabel = $$props.acceptLabel);
 		if ("acceptAllLabel" in $$props) $$invalidate(4, acceptAllLabel = $$props.acceptAllLabel);
 		if ("settingsLabel" in $$props) $$invalidate(5, settingsLabel = $$props.settingsLabel);
@@ -1312,7 +1355,7 @@ function instance($$self, $$props, $$invalidate) {
 	let cookieChoices;
 
 	$$self.$$.update = () => {
-		if ($$self.$$.dirty[0] & /*choices*/ 131072) {
+		if ($$self.$$.dirty[0] & /*choices*/ 262144) {
 			 $$invalidate(9, choicesMerged = Object.assign({}, choicesDefaults, choices));
 		}
 
@@ -1348,6 +1391,7 @@ function instance($$self, $$props, $$invalidate) {
 		chooseAll,
 		chooseNecessary,
 		choose,
+		cookieList,
 		cookieName,
 		categories,
 		cookieConfig,
@@ -1370,13 +1414,14 @@ class Banner extends SvelteComponent {
 			create_fragment,
 			safe_not_equal,
 			{
-				cookieName: 14,
+				cookieName: 15,
+				cookieList: 14,
 				showEditIcon: 0,
 				heading: 1,
 				description: 2,
-				categories: 15,
-				cookieConfig: 16,
-				choices: 17,
+				categories: 16,
+				cookieConfig: 17,
+				choices: 18,
 				acceptLabel: 3,
 				acceptAllLabel: 4,
 				settingsLabel: 5,
